@@ -66,5 +66,5 @@ protected:
     std::unique_ptr<uBasicQuadtree> mChildNodes[4];
 };
 
-#endif // UBASICQUADTREE_H__
+#endif // BASICQUADTREE_H__
 
