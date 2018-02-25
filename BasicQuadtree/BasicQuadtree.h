@@ -19,10 +19,10 @@ constexpr uint32_t gMaxLevelCount  = 5;
     
 //! Temel olarak kullanacagimiz quadtree sinifimiz
 //! Mevcut quadtree icerisindeki nesneler de sf::FloatRect'tir
-class uBasicQuadtree
+class BasicQuadtree
 {
 public:
-    uBasicQuadtree(int32_t level, const sf::FloatRect& boundary);
+    BasicQuadtree(int32_t level, const sf::FloatRect& boundary);
         
     //! Recursive olarak butun cocuklari temizler
     void Clear();
@@ -41,7 +41,7 @@ public:
     void Retrieve(std::vector<sf::FloatRect>& returnedObjects, const sf::FloatRect& pRect);
 
     //! Verilen indeksi temsil eden cocuk dugum donulur
-    uBasicQuadtree* GetChildNode(int32_t index);
+    BasicQuadtree* GetChildNode(int32_t index);
 
     //! Mevcut dugumun sinirlari donulur
     sf::FloatRect GetBoundary() const;
@@ -63,7 +63,7 @@ protected:
 
     //! Cocuk dugumler
     //! 0 => Sag ust, 1 => Sol ust, 2 => Sol alt, 3 => Sag alt
-    std::unique_ptr<uBasicQuadtree> mChildNodes[4];
+    std::unique_ptr<BasicQuadtree> mChildNodes[4];
 };
 
 #endif // BASICQUADTREE_H__

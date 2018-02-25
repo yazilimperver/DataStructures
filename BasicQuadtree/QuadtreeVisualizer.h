@@ -20,13 +20,13 @@ public:
 private:
 
     //! Quadtree'yi gorsellestirme
-    void DisplayQuadtree(uBasicQuadtree* currentNode);
+    void DisplayQuadtree(BasicQuadtree* currentNode);
 
     //! Arka plan cizdirme
     void DrawBackground();
 
     //! Temel quadtree nesnemiz
-    std::unique_ptr<uBasicQuadtree> mQuadtree;
+    std::unique_ptr<BasicQuadtree> mQuadtree;
 
     //! SFML penceremiz
     const uint32_t mWindowWidth = 800;

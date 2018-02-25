@@ -1,12 +1,12 @@
 #include <BasicQuadtree.h>
 
-uBasicQuadtree::uBasicQuadtree(int32_t level, const sf::FloatRect& boundary)
+BasicQuadtree::BasicQuadtree(int32_t level, const sf::FloatRect& boundary)
 {
     mCurrentLevel = level;
     mBoundary = boundary;
 }
 
-void uBasicQuadtree::Clear()
+void BasicQuadtree::Clear()
 {
     mObjects.clear();
 
@@ -16,7 +16,7 @@ void uBasicQuadtree::Clear()
     }
 }
 
-void uBasicQuadtree::Split()
+void BasicQuadtree::Split()
 {
     float subWidth = mBoundary.width / 2.0F;
     float subHeight = mBoundary.height / 2.0F;
@@ -25,13 +25,13 @@ void uBasicQuadtree::Split()
     float y = mBoundary.top;
 
     // Cocuk dugumler icin yer alalim
-    mChildNodes[0] = std::make_unique<uBasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x + subWidth, y, subWidth, subHeight));
-    mChildNodes[1] = std::make_unique<uBasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x, y, subWidth, subHeight));
-    mChildNodes[2] = std::make_unique<uBasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x, y + subHeight, subWidth, subHeight));
-    mChildNodes[3] = std::make_unique<uBasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x + subWidth, y + subHeight, subWidth, subHeight));
+    mChildNodes[0] = std::make_unique<BasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x + subWidth, y, subWidth, subHeight));
+    mChildNodes[1] = std::make_unique<BasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x, y, subWidth, subHeight));
+    mChildNodes[2] = std::make_unique<BasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x, y + subHeight, subWidth, subHeight));
+    mChildNodes[3] = std::make_unique<BasicQuadtree>(mCurrentLevel + 1, sf::FloatRect(x + subWidth, y + subHeight, subWidth, subHeight));
 }
 
-int32_t uBasicQuadtree::GetIndex(const sf::FloatRect& rect)
+int32_t BasicQuadtree::GetIndex(const sf::FloatRect& rect)
 {
     int32_t index = -1;
     float verticalMidpoint = mBoundary.left+ (mBoundary.width / 2);
@@ -73,7 +73,7 @@ int32_t uBasicQuadtree::GetIndex(const sf::FloatRect& rect)
     return index;
 }
 
-void uBasicQuadtree::Insert(const sf::FloatRect& rect)
+void BasicQuadtree::Insert(const sf::FloatRect& rect)
 {
     if (mChildNodes[0] != nullptr)
     {
@@ -125,7 +125,7 @@ void uBasicQuadtree::Insert(const sf::FloatRect& rect)
     }
 }
 
-void uBasicQuadtree::Retrieve(std::vector<sf::FloatRect>& returnedObjects, const sf::FloatRect& pRect)
+void BasicQuadtree::Retrieve(std::vector<sf::FloatRect>& returnedObjects, const sf::FloatRect& pRect)
 {
     int32_t index = GetIndex(pRect);
 
@@ -137,9 +137,9 @@ void uBasicQuadtree::Retrieve(std::vector<sf::FloatRect>& returnedObjects, const
     returnedObjects.insert(returnedObjects.cend(), mObjects.cbegin(), mObjects.cend());
 }
 
-uBasicQuadtree* uBasicQuadtree::GetChildNode(int32_t index)
+BasicQuadtree* BasicQuadtree::GetChildNode(int32_t index)
 {
-    uBasicQuadtree* node = nullptr;
+    BasicQuadtree* node = nullptr;
 
     if (index < 4)
     {
@@ -149,17 +149,17 @@ uBasicQuadtree* uBasicQuadtree::GetChildNode(int32_t index)
     return node;
 }
 
-sf::FloatRect uBasicQuadtree::GetBoundary() const
+sf::FloatRect BasicQuadtree::GetBoundary() const
 {
     return mBoundary;
 }
 
-uint32_t uBasicQuadtree::GetCurrentLevel() const
+uint32_t BasicQuadtree::GetCurrentLevel() const
 {
     return mCurrentLevel;
 }
 
-const std::vector<sf::FloatRect>& uBasicQuadtree::GetObjects()
+const std::vector<sf::FloatRect>& BasicQuadtree::GetObjects()
 {
     return mObjects;
 }

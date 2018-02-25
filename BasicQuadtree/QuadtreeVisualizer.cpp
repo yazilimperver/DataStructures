@@ -12,7 +12,7 @@ QuadtreeVisualizer::QuadtreeVisualizer()
 
     sf::FloatRect rootBoundary{ 0, 0, static_cast<float>(mWindowWidth), static_cast<float>(mWindowHeight) };
 
-    mQuadtree = std::make_unique<uBasicQuadtree>(0, rootBoundary);
+    mQuadtree = std::make_unique<BasicQuadtree>(0, rootBoundary);
 
     mColorList.insert(mColorList.end(), { sf::Color::Red, sf::Color::Blue, sf::Color::Magenta, sf::Color::Black, sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta, sf::Color::Black });
 }
@@ -49,13 +49,13 @@ void QuadtreeVisualizer::Run()
     }
 }
 
-void QuadtreeVisualizer::DisplayQuadtree(uBasicQuadtree* currentNode)
+void QuadtreeVisualizer::DisplayQuadtree(BasicQuadtree* currentNode)
 {
     if (nullptr != currentNode)
     {
         for (int32_t index = 0; index < 4; ++index)
         {
-            uBasicQuadtree* childNode = currentNode->GetChildNode(index);
+            BasicQuadtree* childNode = currentNode->GetChildNode(index);
 
             if (nullptr != childNode)
             {
